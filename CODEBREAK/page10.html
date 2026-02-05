@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safety Debrief</title>
+    <style>
+        @font-face { font-family: 'TronFont'; src: url('tron.ttf'); }
+        
+        body { 
+            margin: 0; padding: 0; 
+            background: url("grid.webp") no-repeat center center fixed; 
+            background-size: cover; height: 100vh; overflow: hidden; 
+            display: flex; align-items: flex-end;
+            background-color: #000; 
+        }
+
+        #mei-sprite { 
+            position: relative;
+            left: 5%;
+            height: 90vh;
+            z-index: 5;
+            object-fit: contain;
+        }
+
+        .dialogue-box { 
+            position: relative;
+            margin-bottom: 50px;
+            margin-right: 5%;
+            width: 55%;
+            background: rgba(0, 40, 20, 0.9); /* Green tint for success/safety */
+            border: 3px solid #00ff00; 
+            box-shadow: 0 0 25px #00ff00; 
+            padding: 30px; 
+            z-index: 10; 
+            backdrop-filter: blur(10px); 
+            border-radius: 10px;
+        }
+
+        .speaker-heading { 
+            font-family: 'TronFont', sans-serif; 
+            color: #00ff00; 
+            margin-bottom: 15px; 
+            font-size: 1.5rem;
+        }
+
+        #text-content { 
+            color: #ffffff; 
+            font-family: 'Courier New', Courier, monospace; 
+            font-size: 1.1rem; 
+            margin-bottom: 25px; 
+            line-height: 1.6;
+        }
+
+        .btn { 
+            background: transparent; 
+            border: 2px solid #00ff00; 
+            color: #00ff00; 
+            padding: 12px 30px; 
+            font-family: 'TronFont', sans-serif; 
+            cursor: pointer; 
+            transition: 0.3s;
+        }
+        
+        .btn:hover { background: #00ff00; color: black; }
+    </style>
+</head>
+<body>
+
+    <div style="display: flex; width: 100%; justify-content: space-between; align-items: flex-end;">
+        <img src="thumbs-up.png" id="mei-sprite" alt="Mei Success">
+
+        <div class="dialogue-box">
+            <div class="speaker-heading">PRIVACY SECURED</div>
+            <p id="text-content">
+                Mei: Excellent work. You intercepted the harvester before it could grab your private images. 
+                <br><br>
+                <b>Real-World Lesson:</b> Impersonators often build trust over weeks—this is called <b>grooming</b>. They might pretend to be a teenager or a fan of the same games. 
+                <br><br>
+                Once they have your private photos, they may use <b>Image Abuse</b> to threaten you. By keeping your 'disks' (data) secure and questioning that fake prompt, you've stopped them in their tracks.
+            </p>
+            <button class="btn" onclick="location.href='page11.html'">CONTINUE MISSION</button>
+        </div>
+    </div>
+
+</body>
+</html>

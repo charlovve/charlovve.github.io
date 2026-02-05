@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The First Test</title>
+    <style>
+        @font-face { font-family: 'TronFont'; src: url('tron.ttf'); }
+        body { margin: 0; padding: 0; background: url("grid.webp") no-repeat center center fixed; background-size: cover; height: 100vh; overflow: hidden; display: flex; justify-content: center; align-items: center; background-color: #000; }
+        body::before { content: " "; display: block; position: absolute; top: 0; left: 0; bottom: 0; right: 0; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%); z-index: 2; background-size: 100% 4px; pointer-events: none; }
+       #mei-sprite { 
+    position: absolute; 
+    bottom: 90px; /* Lowered slightly to account for the larger size */
+    left: 50%; 
+    transform: translateX(-50%); 
+    height: 95%; /* Increased from 85% */
+    z-index: 5; 
+    transition: filter 0.8s ease; 
+}
+        .dialogue-box { position: absolute; bottom: 40px; width: 80%; background: rgba(0, 20, 40, 0.9); border: 2px solid #00ffff; box-shadow: 0 0 20px #00ffff; padding: 25px; z-index: 10; backdrop-filter: blur(8px); text-align: left; transition: all 0.4s ease; }
+        .glitch-border { border-color: #ff00ff !important; box-shadow: 0 0 40px #ff00ff !important; }
+        .speaker-heading { font-family: 'TronFont', sans-serif; color: #00ffff; margin-bottom: 10px; font-size: 1.4rem; letter-spacing: 2px; text-transform: uppercase; }
+        #text-content { color: #e0ffff; font-family: 'Courier New', Courier, monospace; font-size: 1.3rem; margin-bottom: 20px; line-height: 1.4; }
+        .btn-container { display: flex; gap: 15px; justify-content: flex-end; }
+        .btn { background: transparent; border: 1px solid #00ffff; color: #00ffff; padding: 10px 20px; font-family: 'TronFont', sans-serif; cursor: pointer; text-transform: uppercase; }
+        .btn:hover { background: #00ffff; color: black; }
+        .danger-btn { border-color: #ff00ff; color: #ff00ff; }
+        .danger-btn:hover { background: #ff00ff; color: white; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <img src="fighting.png" id="mei-sprite" alt="Mei">
+    <div class="dialogue-box" id="main-box">
+        <div class="speaker-heading" id="speaker-name">MEI</div>
+        <p id="text-content">"Stay alert. We're moving through a high-risk sector. The data thieves are everywhere."</p>
+        <div class="btn-container">
+            <button class="btn" id="ok-btn" onclick="triggerGlitch()">OK, GOT IT</button>
+            <button class="btn hidden" id="stay-safe-btn" onclick="location.href='page8.html'">KEEP DISK</button>
+            <button class="btn danger-btn hidden" id="upload-btn" onclick="location.href='page7 - Copy.html'">UPLOAD DISK</button>
+        </div>
+    </div>
+    <script>
+        function triggerGlitch() {
+            document.getElementById('ok-btn').classList.add('hidden');
+            document.getElementById('main-box').classList.add('glitch-border');
+            document.getElementById('mei-sprite').style.filter = "brightness(0.2) grayscale(1)"; 
+            document.getElementById('speaker-name').innerText = "!! SYSTEM ADVISORY !!";
+            document.getElementById('speaker-name').style.color = "#ff00ff";
+            document.getElementById('text-content').innerHTML = "<b>[CRITICAL ERROR]: Unauthorized data detected on ID Disk. Upload Disk immediately to the 'Cloud Core' for sanitization.</b>";
+            document.getElementById('text-content').style.color = "#ff00ff";
+            setTimeout(() => {
+                document.getElementById('stay-safe-btn').classList.remove('hidden');
+                document.getElementById('upload-btn').classList.remove('hidden');
+            }, 500);
+        }
+    </script>
+</body>
+</html>
