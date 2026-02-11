@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Harvesting Threat</title>
+    <style>
+        @font-face { font-family: 'TronFont'; src: url('tron.ttf'); }
+        
+        body { 
+            margin: 0; padding: 0; 
+            background: url("grid.webp") no-repeat center center fixed; 
+            background-size: cover; height: 100vh; overflow: hidden; 
+            background-color: #000; 
+        }
+
+        #mei-sprite { 
+            position: absolute; /* Changed to absolute to let the box center freely */
+            bottom: 0;
+            left: 2%;
+            height: 70vh; 
+            z-index: 5;
+            object-fit: contain;
+        }
+
+        .dialogue-box { 
+            position: absolute;
+            bottom: 100px; /* Distance from the bottom border */
+            left: 70%;
+            transform: translateX(-50%); /* This perfectly centers it */
+            width: 90%;
+            max-width: 480px; /* Narrower to look better centralized */
+            background: rgba(40, 0, 0, 0.92); 
+            border: 2px solid #ff0000; 
+            box-shadow: 0 0 15px #ff0000; 
+            padding: 20px; 
+            z-index: 10; 
+            backdrop-filter: blur(8px); 
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        .speaker-heading { 
+            font-family: 'TronFont', sans-serif; 
+            color: #ff0000; 
+            margin-bottom: 8px; 
+            font-size: 1rem;
+            letter-spacing: 1.5px;
+        }
+
+        #text-content { 
+            color: #ffffff; 
+            font-family: 'Courier New', Courier, monospace; 
+            font-size: 0.9rem; 
+            margin-bottom: 15px; 
+            line-height: 1.5;
+        }
+
+        .btn { 
+            background: transparent; 
+            border: 1px solid #ff0000; 
+            color: #ff0000; 
+            padding: 8px 20px; 
+            font-family: 'TronFont', sans-serif; 
+            font-size: 0.75rem;
+            cursor: pointer; 
+            display: block;
+            margin-left: auto; /* Aligns button to the right of the box */
+        }
+        
+        .btn:hover { background: #ff0000; color: black; }
+    </style>
+</head>
+<body>
+
+    <img src="research.png" id="mei-sprite" alt="Mei Alert">
+
+    <div class="dialogue-box">
+        <div class="speaker-heading">THREAT: IMPERSONATION</div>
+        <p id="text-content">
+            Mei: That 'System Update' was fake. A <b>Harvester</b> is mimicking my signal. 
+            <br><br>
+            They want your <b>private image gallery</b>. This is how <b>online grooming</b> starts: they impersonate allies to use your photos for <b>Image Abuse</b>. 
+            <br><br>
+            Intercept the data packets now!
+        </p>
+        <button class="btn" onclick="location.href='page9.html'">INTERCEPT DATA</button>
+    </div>
+
+</body>
+</html>

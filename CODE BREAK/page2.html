@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inside the building</title>
+    <style>
+        @font-face {
+            font-family: 'TronFont';
+            src: url('tron.ttf');
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: url("abandoned arcade.jpg") no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* The Door Hotspot */
+        .door-link {
+            position: absolute;
+            left: 480px;
+            top: 150px;
+            width: 150px;
+            height: 219px;
+            cursor: pointer;
+            z-index: 5;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+        }
+
+        .door-link:hover {
+            border: 2px solid #00ffff;
+            background: rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 20px #00ffff;
+        }
+
+        /* Otome Dialogue Box */
+        .dialogue-box {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            background: rgba(0, 0, 0, 0.85);
+            border: 2px solid #00ffff;
+            padding: 25px;
+            box-sizing: border-box;
+            font-family: sans-serif;
+            transition: 0.5s; /* Smooth transition for the glow */
+        }
+
+        .system-label {
+            font-family: 'TronFont', sans-serif;
+            color: #00ffff;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        #text-content {
+            color: white;
+            font-size: 1.3rem;
+            margin: 0;
+        }
+
+        /* Animation for the hint alert */
+        @keyframes hintPulse {
+            0% { box-shadow: 0 0 10px #00ffff; border-color: #00ffff; }
+            50% { box-shadow: 0 0 30px #ff4444; border-color: #ff4444; }
+            100% { box-shadow: 0 0 10px #00ffff; border-color: #00ffff; }
+        }
+
+        .box-hint-glow {
+            animation: hintPulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="door-link" 
+         onmouseover="changeText('There is a faint blue light leaking from the cracks of this door...')" 
+         onmouseout="changeText('It seems like no one has been here for a long time.')"
+         onclick="navigateToNextPage()">
+    </div>
+
+    <div class="dialogue-box">
+        <div class="system-label">Inside the building</div>
+        <p id="text-content">It looks like an abandoned arcade... seems like no one has been here for a long time. Let's look around.</p>
+    </div>
+
+<script>
+    // 1. Updated timer to 15 seconds (15000ms)
+    let hintTimer = setTimeout(showHint, 15000);
+
+    function showHint() {
+        const dialogueBox = document.querySelector('.dialogue-box');
+        const textElement = document.getElementById('text-content');
+        
+        // Add the pulsing glow
+        dialogueBox.classList.add('box-hint-glow');
+        
+        // Update the text and make it look like a system alert
+        textElement.innerText = "CRITICAL HINT: There must be a way out... check the end of the hallway.";
+        textElement.style.color = "#ff4444"; 
+    }
+
+    function changeText(msg) {
+        const textElement = document.getElementById('text-content');
+        const dialogueBox = document.querySelector('.dialogue-box');
+        
+        // Reset the style if the user starts exploring
+        textElement.style.color = "white";
+        textElement.innerText = msg;
+        
+        // Stop the hint pulse once they find something
+        dialogueBox.classList.remove('box-hint-glow');
+    }
+
+    function navigateToNextPage() {
+        // Stop the timer from firing
+        clearTimeout(hintTimer);
+        // Go to page 3
+        window.location.href = 'page3.html';
+    }
+</script>
+</body>
+</html>

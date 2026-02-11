@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safety Protocol Debrief</title>
+    <style>
+        @font-face { font-family: 'TronFont'; src: url('tron.ttf'); }
+        
+        body { 
+            margin: 0; padding: 0; 
+            /* Updated background to encryption gate.jpg */
+            background: url("encryption gate.jpg") no-repeat center center fixed; 
+            background-size: cover; height: 100vh; overflow: hidden; 
+            background-color: #000; 
+        }
+
+        #mei-sprite { 
+            position: absolute;
+            bottom: 25%;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 50vh; 
+            z-index: 5;
+            object-fit: contain;
+        }
+
+        .dialogue-box { 
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50%; 
+            background: rgba(0, 10, 20, 0.95); 
+            border: 1px solid #00ffff; 
+            box-shadow: 0 0 15px #00ffff; 
+            padding: 20px 25px; 
+            z-index: 10; 
+            backdrop-filter: blur(8px);
+            text-align: left; 
+            min-height: 120px; 
+        }
+
+        .speaker-heading { 
+            font-family: 'TronFont', sans-serif; 
+            color: #00ffff; 
+            margin-bottom: 8px; 
+            font-size: 0.9rem;
+            letter-spacing: 1.5px;
+        }
+
+        #text-content { 
+            color: #e0ffff; 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            font-size: 1rem; 
+            margin-bottom: 15px; 
+            line-height: 1.4;
+            min-height: 3em;
+        }
+
+        .btn { 
+            background: transparent; 
+            border: 1px solid #ff00ff; 
+            color: #ff00ff; 
+            padding: 8px 20px; 
+            font-family: 'TronFont', sans-serif; 
+            font-size: 0.8rem;
+            cursor: pointer; 
+            transition: 0.3s;
+        }
+        
+        .btn:hover { background: #ff00ff; color: black; box-shadow: 0 0 10px #ff00ff; }
+    </style>
+</head>
+<body>
+
+    <img src="fists.png" id="mei-sprite" alt="Mei Debrief">
+
+    <div class="dialogue-box">
+        <div class="speaker-heading" id="box-header">MEI</div>
+        <p id="text-content">
+            That protocol you assembled is your strongest weapon against Online Grooming. Let's break down why it works...
+        </p>
+        <button class="btn" id="action-btn" onclick="nextStep()">CONTINUE</button>
+    </div>
+
+    <script>
+        let step = 0;
+        const dialogue = [
+            { header: "STEP 1: REFUSE", text: "<b>Set a boundary immediately.</b> Groomers rely on your silence or politeness to push further. Saying NO stops the momentum." },
+            { header: "STEP 2: EVIDENCE", text: "<b>Take screenshots!</b> Once you block them, messages can be deleted or disappear. Evidence is vital for reporting." },
+            { header: "STEP 3: BLOCK & REPORT", text: "<b>Cut their access.</b> Use the platform's tools to report the account. This protects you and others from the same predator." },
+            { header: "STEP 4: TRUST", text: "<b>Tell a trusted adult.</b> You don't have to face this alone. Predators use isolation as a weapon; sharing the truth breaks that power." }
+        ];
+
+        function nextStep() {
+            if (step < dialogue.length) {
+                document.getElementById('box-header').innerText = dialogue[step].header;
+                document.getElementById('text-content').innerHTML = dialogue[step].text;
+                step++;
+                
+                if (step === dialogue.length) {
+                    const btn = document.getElementById('action-btn');
+                    btn.innerText = "PROCEED TO CORE";
+                    btn.onclick = () => window.location.href = 'page14.html';
+                }
+            }
+        }
+    </script>
+</body>
+</html>

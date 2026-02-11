@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepfake Analysis</title>
+    <style>
+        @font-face { font-family: 'TronFont'; src: url('tron.ttf'); }
+
+        body {
+            margin: 0; padding: 0;
+            background: #000 url("inside.jpg") no-repeat center center fixed;
+            background-size: cover;
+            color: #00ffff;
+            font-family: 'Courier New', Courier, monospace;
+            overflow: hidden;
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        /* INSTRUCTION OVERLAY */
+        #instructions {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 5, 15, 0.95);
+            z-index: 100; display: flex; justify-content: center; align-items: center;
+            text-align: center;
+        }
+
+        .briefing-box {
+            border: 2px solid #ff00ff; padding: 40px; background: #001428;
+            max-width: 600px; box-shadow: 0 0 30px #ff00ff;
+        }
+
+        /* GAME AREA */
+        .game-area { display: flex; justify-content: center; gap: 40px; margin-top: 50px; opacity: 0.3; transition: 0.5s; }
+
+        .sprite-container { position: relative; border: 2px solid #00ffff; padding: 10px; background: rgba(0, 20, 40, 0.6); }
+        .sprite-container img { height: 65vh; display: block; }
+
+        /* CLICKABLE GLITCH ZONES */
+        .glitch-spot {
+            position: absolute;
+            background: rgba(255, 0, 255, 0.1); /* Keep 0.1 for testing, change to 0 for the final version */
+            border: 1px dashed #ff00ff;
+            cursor: crosshair;
+            border-radius: 50%;
+        }
+
+        /* YOUR CUSTOM COORDINATES */
+        #headphone-glitch { 
+            top: 15%; 
+            left: 14%; 
+            width: 50px; 
+            height: 50px; 
+        }
+
+        #hand-glitch { 
+            bottom: 55%; 
+            left: 33%; 
+            width: 70px; 
+            height: 70px; 
+        }
+
+        .btn {
+            background: transparent; border: 1px solid #00ffff; color: #00ffff;
+            padding: 10px 30px; font-family: 'TronFont'; cursor: pointer; margin-top: 20px;
+        }
+        .btn:hover { background: #00ffff; color: #000; }
+    </style>
+</head>
+<body>
+
+    <div id="instructions">
+        <div class="briefing-box">
+            <h1 style="font-family: 'TronFont'; color: #ff00ff;">SCANNING FOR INFILTRATOR...</h1>
+            <p>Generative AI often misses small details and struggles with complex geometry.</p>
+            <ul style="text-align: left; line-height: 1.6;">
+                <li><b>Left Image:</b> The Secure Reference.</li>
+                <li><b>Right Image:</b> Potential Deepfake.</li>
+                <li><b>Mission:</b> Click the 2 areas on the <b>RIGHT</b> where the details (Headphones/Hands) are corrupted.</li>
+            </ul>
+            <button class="btn" onclick="startGame()">START ANALYSIS</button>
+        </div>
+    </div>
+
+    <h1 style="font-family: 'TronFont'; margin-top: 20px;">SYSTEM ANALYSIS MODE</h1>
+    
+    <div class="game-area" id="main-game">
+        <div class="sprite-container">
+            <div style="position:absolute; top:-25px; font-family:'TronFont';">REFERENCE: STABLE</div>
+            <img src="correct.png">
+        </div>
+
+        <div class="sprite-container">
+            <div style="position:absolute; top:-25px; color:#ff00ff; font-family:'TronFont';">TARGET: ANOMALY</div>
+            <img src="wrong.png">
+            
+            <div class="glitch-spot" id="headphone-glitch" onclick="found('Detail Loss: Missing Headphones')"></div>
+            <div class="glitch-spot" id="hand-glitch" onclick="found('Geometry Error: Corrupted Hand Structure')"></div>
+        </div>
+    </div>
+
+    <h2 id="status" style="margin-top:20px; color:#ff00ff; font-family:'TronFont';">ANOMALIES FOUND: 0/2</h2>
+
+    <script>
+        let score = 0;
+        const pName = localStorage.getItem("playerTagName") || "User";
+
+        function startGame() {
+            document.getElementById('instructions').style.display = 'none';
+            document.getElementById('main-game').style.opacity = '1';
+        }
+
+        function found(message) {
+            // Disable the spot
+            event.target.style.pointerEvents = 'none';
+            event.target.style.background = 'rgba(0, 255, 0, 0.4)';
+            event.target.style.border = '2px solid #00ff00';
+
+            score++;
+            document.getElementById('status').innerText = "ANOMALIES FOUND: " + score + "/2";
+            
+            alert(message);
+
+            if(score === 2) {
+                alert("DEEPFAKE DEFEATED. Excellent eye, " + pName + "!");
+                window.location.href = 'page15.html';
+            }
+        }
+    </script>
+</body>
+</html>

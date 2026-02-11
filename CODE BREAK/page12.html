@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocol Match - Sector 04</title>
+    <style>
+        @font-face { font-family: 'TronFont'; src: url('tron.ttf'); }
+        
+        body { 
+            margin: 0; padding: 0; 
+            background: url("encryption gate.jpg") no-repeat center center fixed; 
+            background-size: cover; height: 100vh; overflow: hidden; 
+            background-color: #000; color: #00ffff;
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+        }
+
+        .game-container {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            height: 100vh; background: rgba(0, 0, 0, 0.75);
+        }
+
+        h1 { font-family: 'TronFont'; font-size: 2.2rem; margin-bottom: 5px; color: #ff00ff; text-shadow: 0 0 10px #ff00ff; }
+        
+        .scenario-box {
+            background: rgba(255, 0, 255, 0.1);
+            border: 1px solid #ff00ff;
+            padding: 15px 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            text-align: center;
+            max-width: 700px;
+        }
+
+        .protocol-hint { color: #00ffff; font-weight: bold; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+
+        .password-display { display: flex; gap: 10px; margin-bottom: 40px; }
+        .slot {
+            width: 160px; height: 80px; border: 2px dashed #00ffff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.9rem; font-weight: bold; background: rgba(0, 255, 255, 0.05);
+            border-radius: 4px; text-align: center; padding: 5px;
+        }
+        .slot.filled { border: 2px solid #00ff00; color: #00ff00; background: rgba(0, 255, 0, 0.1); }
+
+        .fragment-pool { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; max-width: 800px; }
+        .fragment {
+            padding: 12px 20px; border: 2px solid #00ffff; color: #00ffff;
+            cursor: pointer; font-size: 1rem; font-weight: 600; border-radius: 5px;
+            transition: 0.2s; background: rgba(0, 0, 0, 0.6); max-width: 200px; text-align: center;
+        }
+        .fragment:hover { background: #00ffff; color: #000; }
+        .fragment.used { opacity: 0.2; pointer-events: none; border-color: #444; }
+
+        #status-msg { margin-top: 15px; font-weight: bold; font-size: 1.1rem; height: 30px; }
+    </style>
+</head>
+<body>
+
+    <div class="game-container">
+        <h1>HARMS DETECTED</h1>
+        
+        <div class="scenario-box">
+            <b style="color: #ff00ff;">SCENARIO:</b> "An online 'friend' is pressuring you for a private photo and your home address. They say they'll stop talking to you if you don't send it."
+        </div>
+
+        <div class="protocol-hint">Assemble the 4-Step Safety Response:</div>
+
+        <div class="password-display">
+            <div id="slot0" class="slot">STEP 1</div>
+            <div id="slot1" class="slot">STEP 2</div>
+            <div id="slot2" class="slot">STEP 3</div>
+            <div id="slot3" class="slot">STEP 4</div>
+        </div>
+
+        <div class="fragment-pool">
+            <div class="fragment" onclick="checkFragment(this, 'REFUSE', 'Refuse Request')">Refuse the Request</div>
+            <div class="fragment" onclick="checkFragment(this, 'TRUST', 'Tell Trusted Adult')">Tell a Trusted Adult</div>
+            <div class="fragment" onclick="checkFragment(this, 'BLOCK', 'Block & Report')">Block & Report User</div>
+            <div class="fragment" onclick="checkFragment(this, 'EVIDENCE', 'Save Evidence')">Save Evidence (Screenshots)</div>
+            <div class="fragment" onclick="checkFragment(this, 'NEGOTIATE', 'Negotiate')">Try to Negotiate</div>
+            <div class="fragment" onclick="checkFragment(this, 'APOLOGIZE', 'Apologize')">Apologize to them</div>
+        </div>
+
+        <div id="status-msg"></div>
+    </div>
+
+    <script>
+        // Correct Sequence for Handling Grooming/Image Abuse
+        const sequence = ['REFUSE', 'EVIDENCE', 'BLOCK', 'TRUST'];
+        let currentIndex = 0;
+
+        const selectSound = new Audio('select.mp3');
+        const errorSound = new Audio('error.mp3');
+        const successSound = new Audio('success.mp3');
+
+        function checkFragment(element, type, value) {
+            if (type === sequence[currentIndex]) {
+                selectSound.currentTime = 0;
+                selectSound.play();
+                
+                const currentSlot = document.getElementById('slot' + currentIndex);
+                currentSlot.innerText = value;
+                currentSlot.classList.add('filled');
+                element.classList.add('used');
+                
+                currentIndex++;
+                document.getElementById('status-msg').style.color = "#00ff00";
+                document.getElementById('status-msg').innerText = "PROTOCOL STEP VALIDATED";
+
+                if (currentIndex === sequence.length) {
+                    successSound.play();
+                    document.getElementById('status-msg').innerText = "GATE DECRYPTED: SAFETY SECURED";
+                    setTimeout(() => { window.location.href = 'page13.html'; }, 2500);
+                }
+            } else {
+                errorSound.currentTime = 0;
+                errorSound.play();
+                document.getElementById('status-msg').style.color = "#ff4444";
+                document.getElementById('status-msg').innerText = "INCORRECT RESPONSE - ANALYZE THE RISK";
+                
+                document.body.style.backgroundColor = "#300";
+                setTimeout(() => document.body.style.backgroundColor = "#000", 200);
+            }
+        }
+    </script>
+</body>
+</html>
