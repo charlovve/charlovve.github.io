@@ -8,53 +8,51 @@
     <style>
         @font-face {
             font-family: 'TronFont';
-            src: url('tron.ttf');
+            /* Using Absolute Path to ensure it works inside the iframe */
+            src: url('https://charlovve.github.io/CODEBREAK/tron.ttf') format('truetype');
         }
 
         body {
             background-image: url("outside.jpg");
             background-size: cover;
             background-position: center;
-            height: 100vh;
+            height: 540px; /* Fixed height for your iframe */
+            width: 960px;  /* Fixed width for your iframe */
             margin: 0;
             overflow: hidden;
             background-color: #000;
+            position: relative;
         }
 
         .dialogue-box {
-            background: rgba(0, 20, 40, 0.6);
+            background: rgba(0, 20, 40, 0.7);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border: 2px solid #00ffff;
-            padding: 20px 40px;
+            padding: 15px 30px;
             border-radius: 0 0 15px 15px;
             box-shadow: 0 5px 20px rgba(0, 255, 255, 0.3);
             position: absolute;
             top: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 90%;
-            max-width: 1100px;
+            width: 80%; /* Slightly narrower for the 960px width */
+            max-width: 800px;
             text-align: left;
             font-family: 'TronFont', sans-serif;
             z-index: 10;
         }
 
-        /* Name Input Styling */
         .name-input {
             background: rgba(0, 0, 0, 0.5);
             border: 1px solid #00ffff;
             color: #00ffff;
-            padding: 10px;
+            padding: 8px;
             font-family: 'Courier New', Courier, monospace;
-            font-size: 1.1rem;
-            width: 250px;
-            margin-bottom: 20px;
+            font-size: 1rem;
+            width: 220px;
+            margin-bottom: 15px;
             outline: none;
-        }
-
-        .name-input:focus {
-            box-shadow: 0 0 10px #00ffff;
         }
 
         @keyframes shake {
@@ -65,33 +63,26 @@
             100% { transform: translate(calc(-50% + 1px), -1px) rotate(-0.5deg); }
         }
 
-        .apply-shake {
-            animation: shake 0.5s infinite;
-            border-color: #ff00ff;
-            box-shadow: 0 0 30px #ff00ff;
-        }
+        .apply-shake { animation: shake 0.5s infinite; border-color: #ff00ff; box-shadow: 0 0 30px #ff00ff; }
 
-        h1 { color: white; text-shadow: 0 0 10px #00ffff; font-size: 1.5rem; margin-top: 0; }
-        p { color: #ddd; font-family: sans-serif; margin-bottom: 20px; font-size: 1.2rem; }
-        .button-container { display: flex; justify-content: flex-end; gap: 20px; }
+        h1 { color: white; text-shadow: 0 0 10px #00ffff; font-size: 1.2rem; margin-top: 0; }
+        p { color: #ddd; font-family: sans-serif; margin-bottom: 15px; font-size: 1rem; }
+        
+        .button-container { display: flex; justify-content: flex-end; gap: 15px; }
 
         .btn {
             color: #00ffff;
             text-decoration: none;
-            border: 2px solid #00ffff;
-            padding: 8px 25px;
+            border: 1px solid #00ffff;
+            padding: 6px 20px;
             background: transparent;
             font-family: 'TronFont', sans-serif;
-            font-size: 1rem;
+            font-size: 0.9rem;
             cursor: pointer;
             transition: 0.3s;
         }
 
-        .btn:hover {
-            background: #00ffff;
-            color: black;
-            box-shadow: 0 0 20px #00ffff;
-        }
+        .btn:hover { background: #00ffff; color: black; box-shadow: 0 0 20px #00ffff; }
     </style>
 </head>
 <body>
@@ -108,41 +99,38 @@
         </div>
     </div>
 
-   <script>
-    function saveName() {
-        let nameInput = document.getElementById('playerName').value;
-        let finalName = nameInput.trim() !== "" ? nameInput : "User";
-        localStorage.setItem("playerTagName", finalName);
+    <script>
+        function saveName() {
+            let nameInput = document.getElementById('playerName').value;
+            let finalName = nameInput.trim() !== "" ? nameInput : "User";
+            localStorage.setItem("playerTagName", finalName);
+            localStorage.setItem("startTime", Date.now()); 
+        }
 
-        // --- ADDED TIMER START HERE ---
-        localStorage.setItem("startTime", Date.now()); 
-        // ------------------------------
-    }
-
-    function startGame() {
-        saveName();
-        window.location.href = "page2.html";
-    }
-
-    function forcePlayer() {
-        saveName(); // The timer will now start here too!
-        const box = document.getElementById('box');
-        const mainText = document.getElementById('main-text');
-        const subText = document.getElementById('sub-text');
-        const buttons = document.getElementById('actions');
-        const input = document.getElementById('playerName');
-
-        box.classList.add('apply-shake');
-        mainText.innerHTML = "CRITICAL ERROR: MANDATORY ACCESS";
-        mainText.style.color = "#ff00ff";
-        subText.innerHTML = "Something draws you in. You enter anyway...";
-        buttons.style.visibility = "hidden";
-        input.style.visibility = "hidden";
-
-        setTimeout(function() {
+        function startGame() {
+            saveName();
             window.location.href = "page2.html";
-        }, 2500);
-    }
-</script>
+        }
+
+        function forcePlayer() {
+            saveName();
+            const box = document.getElementById('box');
+            const mainText = document.getElementById('main-text');
+            const subText = document.getElementById('sub-text');
+            const buttons = document.getElementById('actions');
+            const input = document.getElementById('playerName');
+
+            box.classList.add('apply-shake');
+            mainText.innerHTML = "CRITICAL ERROR: MANDATORY ACCESS";
+            mainText.style.color = "#ff00ff";
+            subText.innerHTML = "Something draws you in. You enter anyway...";
+            buttons.style.visibility = "hidden";
+            input.style.visibility = "hidden";
+
+            setTimeout(function() {
+                window.location.href = "page2.html";
+            }, 2500);
+        }
+    </script>
 </body>
 </html>
